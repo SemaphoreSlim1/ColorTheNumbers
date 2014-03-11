@@ -1,4 +1,5 @@
-﻿/// <reference path="../Frameworks/BufferedLoader/BufferedLoader.js" />
+﻿/// <reference path="../ViewModel.js" />
+/// <reference path="../Frameworks/SoundJs/soundjs-0.5.2.min.js" />
 
 
 function HighlightableWord(text) {
@@ -19,9 +20,9 @@ function HighlightableWord(text) {
 
     this.play = function () {        
       
-        var snd = new Audio('Content/Sound/' + self.TextValue().toString().toLowerCase() + '.m4a');
-        snd.play();
+        if (VM.CanPlayAudio() == false)
+        { return; }
+
+        createjs.Sound.play(self.TextValue().toLowerCase());
     }
 }
-
-HighlightableWord.ValidWords = new Array('blue','green','orange','red','one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety','hundred');

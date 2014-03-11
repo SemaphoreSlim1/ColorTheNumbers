@@ -1,6 +1,11 @@
-﻿/// <reference path="Frameworks/jQuery/jQuery-2.1.0.js" />
+﻿
+/// <reference path="Frameworks/SoundJs/soundjs-0.5.2.min.js" />
+
+
+/// <reference path="Frameworks/jQuery/jQuery-2.1.0.js" />
 /// <reference path="Frameworks/Knockout/knockout-3.1.0.js" />
 /// <reference path="Frameworks/jsLinq/linq.min.js" />
+/// <reference path="Frameworks/HashTable/HashTable.js" />
 
 /// <reference path="ViewModels/ColorOption.js" />
 /// <reference path="ViewModels/HighlightableWord.js" />
@@ -12,25 +17,20 @@
 function ViewModel() {
 
     var self = this;
-       
-    function RemoveSelectorGlow()
-    {
+
+    function RemoveSelectorGlow() {
         $("#btn-selector-blue").removeClass("glow-blue");
         $("#btn-selector-green").removeClass("glow-green");
         $("#btn-selector-orange").removeClass("glow-orange");
         $("#btn-selector-red").removeClass("glow-red");
     }
 
-    self.ColorSelected = function(color)
-    {
+    self.ColorSelected = function (color) {
         RemoveSelectorGlow();
         $("#btn-selector-" + color).addClass("glow-" + color);
 
         var selColor = Enumerable.From(ColorOption.defaultColors()).Where(function (colorOption) { return colorOption.textValue == color }).First();
         self.SelectedColor(selColor);
-
-        //var word = new HighlightableWord(color);
-        //word.play();
     }
 
     self.SelectedColor = ko.observable();
@@ -44,8 +44,7 @@ function ViewModel() {
         self.Prompt().animatePrompt();
     }
 
-    self.Refresh = function(sender)
-    {
+    self.Refresh = function (sender) {
         RemoveSelectorGlow();
         self.SelectedColor(null);
         self.History([]);
@@ -55,11 +54,12 @@ function ViewModel() {
     }
 
     self.History = ko.observableArray();
+    self.CanPlayAudio = ko.observable(false);
 
     self.ValidateSelection = function (selection) {
         /// <summary>Validates the selection</summary>
         /// <param name="selection" type="ViewModelColumn">the selection made by the user</param>
-        
+
         var historyItem = new HistoryItem();
         historyItem.InstructedColor(self.Prompt().TargetColor);
         historyItem.InstructedNumber(self.Prompt().TargetNumber);
@@ -70,7 +70,7 @@ function ViewModel() {
 
         var newPrompt = Prompt.generate();
         self.Prompt(newPrompt);
-        newPrompt.animatePrompt();        
+        newPrompt.animatePrompt();
     };
 
     function ResetRows() {
@@ -91,5 +91,16 @@ function ViewModel() {
 var VM = new ViewModel();
 
 $(document).ready(function () {
+
     ko.applyBindings(VM);
+
+    if (createjs.Sound.initializeDefaultPlugins()) {
+        var supportedWords = new Array('color', 'blue', 'green', 'orange', 'red', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred');
+        var audioPath = "Content/Sound/";
+
+        var manifest = Enumerable.From(supportedWords).Select(function (word) { return { id: word, src: word + ".m4a" }; }).ToArray();
+        createjs.Sound.addEventListener("fileload", function (event) { VM.CanPlayAudio(true); });
+        createjs.Sound.registerManifest(manifest, audioPath);
+    }
+
 });

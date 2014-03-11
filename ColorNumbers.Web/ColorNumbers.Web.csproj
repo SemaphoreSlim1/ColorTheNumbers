@@ -115,9 +115,11 @@
     <Content Include="Scripts\Frameworks\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\Frameworks\Bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\Frameworks\Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Frameworks\HashTable\HashTable.js" />
     <Content Include="Scripts\Frameworks\jQuery\jQuery-2.1.0.js" />
     <Content Include="Scripts\Frameworks\jsLinq\linq.min.js" />
     <Content Include="Scripts\Frameworks\Knockout\knockout-3.1.0.js" />
+    <Content Include="Scripts\Frameworks\SoundJs\soundjs-0.5.2.min.js" />
     <Content Include="Scripts\ViewModel.js" />
     <Content Include="Scripts\ViewModels\ColorOption.js" />
     <Content Include="Scripts\ViewModels\HighlightableWord.js" />
@@ -129,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Scripts\Frameworks\BufferedLoader\BufferLoader.js" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
