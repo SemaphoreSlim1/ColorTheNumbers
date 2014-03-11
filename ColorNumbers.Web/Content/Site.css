@@ -1,0 +1,62 @@
+﻿.body-content {
+   padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.glow-blue{
+    box-shadow: 0px 0px 30px 0px #2d6ca2;
+}
+
+.glow-green{
+    box-shadow: 0px 0px 30px 0px #419641;
+}
+
+.glow-red{
+    box-shadow: 0px 0px 30px 0px #c12e2a;
+}
+
+.glow-orange{
+    box-shadow: 0px 0px 30px 0px #eb9316;
+}
+
+.btn-number{
+    width: 3em;
+}
+
+.focused-text{
+    text-shadow: 0 0 15px yellow;
+}
+
+table {
+        width: 100%;
+    }
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+tbody {
+    height: 250px;
+    overflow-y: auto;
+}
+
+thead {
+    /* fallback */
+}
+
+
+tbody td, thead th {
+    width: 19.2%;
+    float: left;
+}
